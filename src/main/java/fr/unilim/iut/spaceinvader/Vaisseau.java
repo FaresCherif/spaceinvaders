@@ -19,23 +19,43 @@ public class Vaisseau {
     }
 	
     public boolean occupeLaPosition(int x, int y) {
-	     if ((this.x<=x) && (x<=this.x+this.longueur-1)) 
-		      if ( (this.y-this.hauteur+1<=y) && (y<=this.y))
-			  return true;
-		
-	     return false;
+	     return (estAbscisseCouverte(x) && estOrdonneeCouverte(y));
     }
 
+	private boolean estOrdonneeCouverte(int y) {
+		return (ordonneeLaPlusHaute()<=y) && (y<=ordonneeLaPlusBasse());
+	}
+
+	private int ordonneeLaPlusHaute() {
+		return ordonneeLaPlusBasse()-this.hauteur+1;
+	}
+
+	private int ordonneeLaPlusBasse() {
+		return this.y;
+	}
+
+	private boolean estAbscisseCouverte(int x) {
+		return (abscisseLaPlusAGauche()<=x) && (x<=abscisseLaPlusADroite());
+	}
+
+	private int abscisseLaPlusAGauche() {
+		return this.x;
+	}
+
+	public int abscisseLaPlusADroite() {
+		return abscisseLaPlusAGauche()+this.longueur-1;
+	}
+
 	public void seDeplacerVersLaDroite() {
-		 this.x = this.x + 1 ;
+		 this.x = abscisseLaPlusAGauche() + 1 ;
 	}
 	
 	public void seDeplacerVersLaGauche() {
-		 this.x = this.x - 1 ;
+		 this.x = abscisseLaPlusAGauche() - 1 ;
 	}
 
 	public int abscisse() {
-		return this.x;
+		return abscisseLaPlusAGauche();
 	}
 
 	 public void positionner(int x, int y) {

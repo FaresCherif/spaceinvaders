@@ -1,5 +1,6 @@
 package fr.unilim.iut.spaceinvaders.utils;
 
+
 public class Position {
 	int x;
 	int y;

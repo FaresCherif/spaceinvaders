@@ -1,6 +1,7 @@
 package fr.unilim.iut.spaceinvader;
 
 import fr.unilim.iut.spaceinvaders.moteurjeu.Commande;
+import fr.unilim.iut.spaceinvaders.moteurjeu.Constante;
 import fr.unilim.iut.spaceinvaders.moteurjeu.Jeu;
 import fr.unilim.iut.spaceinvaders.utils.DebordementEspaceJeuException;
 import fr.unilim.iut.spaceinvaders.utils.Dimension;
@@ -15,6 +16,7 @@ public class SpaceInvaders implements Jeu {
 	int hauteur;
 	public Vaisseau vaisseau;
 	private static final char MARQUE_VAISSEAU = 'V';
+	private Constante constante;
 
 	public SpaceInvaders(int longueur, int hauteur) {
 		this.longueur = longueur;
@@ -93,6 +95,10 @@ public class SpaceInvaders implements Jeu {
 	@Override
 	public boolean etreFini() {
 		return false;
+	}
+	
+	public void initialiserJeu() {
+		vaisseau.positionner(longueur/2, 0);
 	}
 
 }

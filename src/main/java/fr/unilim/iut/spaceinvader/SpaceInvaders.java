@@ -10,12 +10,9 @@ import fr.unilim.iut.spaceinvaders.utils.Position;
 
 public class SpaceInvaders implements Jeu {
 
-	private static final char MARQUE_FIN_LIGNE = '\n';
-	private static final char MARQUE_VIDE = '.';
 	int longueur;
 	int hauteur;
 	public Vaisseau vaisseau;
-	private static final char MARQUE_VAISSEAU = 'V';
 	private Constante constante;
 
 	public SpaceInvaders(int longueur, int hauteur) {
@@ -29,7 +26,7 @@ public class SpaceInvaders implements Jeu {
 			for (int x = 0; x < longueur; x++) {
 				espaceDeJeu.append(recupererMarqueDeLaPosition(x, y));
 			}
-			espaceDeJeu.append(MARQUE_FIN_LIGNE);
+			espaceDeJeu.append(Constante.MARQUE_FIN_LIGNE);
 		}
 		return espaceDeJeu.toString();
 	}
@@ -37,9 +34,9 @@ public class SpaceInvaders implements Jeu {
 	private char recupererMarqueDeLaPosition(int x, int y) {
 		char marque;
 		if (this.aUnVaisseauQuiOccupeLaPosition(x, y))
-			marque = MARQUE_VAISSEAU;
+			marque = Constante.MARQUE_VAISSEAU;
 		else
-			marque = MARQUE_VIDE;
+			marque = Constante.MARQUE_VIDE;
 		return marque;
 	}
 
@@ -47,7 +44,7 @@ public class SpaceInvaders implements Jeu {
 		return this.aUnVaisseau() && vaisseau.occupeLaPosition(x, y);
 	}
 
-	private boolean aUnVaisseau() {
+	public boolean aUnVaisseau() {
 		return vaisseau != null;
 	}
 
@@ -87,18 +84,32 @@ public class SpaceInvaders implements Jeu {
 		vaisseau.positionner(x, y);
 	}
 
-	@Override
-	public void evoluer(Commande commandeUser) {
-		this.vaisseau.deplacer(commandeUser);
-	}
+	 @Override
+     public void evoluer(Commande commandeUser) {
+		
+        if (commandeUser.gauche) {
+            deplacerVaisseauVersLaGauche();
+        }
+		
+       if (commandeUser.droite) {
+	        deplacerVaisseauVersLaDroite();
+       }
 
-	@Override
-	public boolean etreFini() {
-		return false;
-	}
-	
-	public void initialiserJeu() {
-		vaisseau.positionner(longueur/2, 0);
-	}
+     }
 
+ 
+    @Override
+    public boolean etreFini() {
+       return false; 
+    }
+
+    public Vaisseau recupererVaisseau() {
+		return this.vaisseau;
+	}
+    
+    public void initialiserJeu() {
+	    Position positionVaisseau = new Position(this.longueur/2,this.hauteur-1);
+	    Dimension dimensionVaisseau = new Dimension(Constante.VAISSEAU_LONGUEUR, Constante.VAISSEAU_HAUTEUR);
+	    positionnerUnNouveauVaisseau(dimensionVaisseau, positionVaisseau);
+    }
 }

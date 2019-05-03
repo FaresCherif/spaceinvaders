@@ -45,11 +45,12 @@ public class Controleur implements KeyListener {
 	/**
 	 * met a jour les commandes en fonctions des touches appuyees
 	 */
+	
 	public void keyPressed(KeyEvent e) {
 
 		switch (e.getKeyChar()) {
 		// si on appuie sur 'q',commande joueur est gauche
-		case 'q':
+		case 'q' :
 			this.commandeEnCours.gauche = true;
 			this.commandeARetourner.gauche = true;
 			break;
@@ -68,6 +69,30 @@ public class Controleur implements KeyListener {
 			this.commandeEnCours.bas = true;
 			this.commandeARetourner.bas = true;
 			break;
+			
+		default:
+			break;
+		}
+		
+		switch (e.getKeyCode()) {
+		case KeyEvent.VK_LEFT:
+			this.commandeEnCours.gauche = true;
+			this.commandeARetourner.gauche = true;
+			break;
+		case KeyEvent.VK_RIGHT:
+			this.commandeEnCours.droite = true;
+			this.commandeARetourner.droite = true;
+			break;
+		case KeyEvent.VK_UP:
+			this.commandeEnCours.haut = true;
+			this.commandeARetourner.haut = true;
+			break;
+		case KeyEvent.VK_DOWN:
+			this.commandeEnCours.bas = true;
+			this.commandeARetourner.bas = true;
+			break;
+		default:
+			break;
 		}
 
 	}
@@ -81,17 +106,53 @@ public class Controleur implements KeyListener {
 		case 'q':
 			this.commandeEnCours.gauche = false;
 			break;
+			
 		case 'd':
 			this.commandeEnCours.droite = false;
 			break;
+			
 		case 'z':
 			this.commandeEnCours.haut = false;
 			break;
+			
 		case 's':
 			this.commandeEnCours.bas = false;
 			break;
+			
+		case KeyEvent.VK_LEFT:
+			this.commandeEnCours.gauche = false;
+			break;
+			
+		case KeyEvent.VK_RIGHT:
+			this.commandeEnCours.droite = false;
+			break;
+			
+		case KeyEvent.VK_UP:
+			this.commandeEnCours.haut = false;
+			break;
+			
+		case KeyEvent.VK_DOWN:
+			this.commandeEnCours.bas = false;
+			break;
+			
+		default: break;
 		}
 
+		switch (e.getKeyCode()) {
+		case KeyEvent.VK_LEFT:
+			this.commandeEnCours.gauche = false;
+			break;
+		case KeyEvent.VK_RIGHT:
+			this.commandeEnCours.droite = false;
+			break;
+		case KeyEvent.VK_UP:
+			this.commandeEnCours.haut = false;
+			break;
+		case KeyEvent.VK_DOWN:
+			this.commandeEnCours.bas = false;
+			break;
+		default: break;
+		}
 	}
 
 	@Override

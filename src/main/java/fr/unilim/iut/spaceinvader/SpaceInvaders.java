@@ -53,16 +53,23 @@ public class SpaceInvaders implements Jeu {
 	}
 
 	public void deplacerVaisseauVersLaDroite() {
-		if (vaisseau.abscisseLaPlusADroite() < (longueur - 1))
+		if (vaisseau.abscisseLaPlusADroite() < (longueur - 1)) {
 			vaisseau.seDeplacerVersLaDroite();
+			if (!estDansEspaceJeu(vaisseau.abscisseLaPlusADroite(), vaisseau.ordonneeLaPlusHaute())) {
+				vaisseau.positionner(longueur - vaisseau.longueur(), vaisseau.ordonneeLaPlusHaute());
+			}
+		}
 	}
 
 	public void deplacerVaisseauVersLaGauche() {
-		if (vaisseau.abscisseLaPlusAGauche() > (0))
+		if (0 < vaisseau.abscisseLaPlusAGauche())
 			vaisseau.seDeplacerVersLaGauche();
+		if (!estDansEspaceJeu(vaisseau.abscisseLaPlusAGauche(), vaisseau.ordonneeLaPlusHaute())) {
+			vaisseau.positionner(0, vaisseau.ordonneeLaPlusHaute());
+		}
 	}
 
-	public void positionnerUnNouveauVaisseau(Dimension dimension, Position position) {
+	public void positionnerUnNouveauVaisseau(Dimension dimension, Position position, int vitesse) {
 
 		int x = position.abscisse();
 		int y = position.ordonnee();
@@ -80,36 +87,34 @@ public class SpaceInvaders implements Jeu {
 			throw new DebordementEspaceJeuException(
 					"Le vaisseau déborde de l'espace jeu vers le bas à cause de sa hauteur");
 
-		vaisseau = new Vaisseau(longueurVaisseau, hauteurVaisseau);
-		vaisseau.positionner(x, y);
+		vaisseau = new Vaisseau(dimension, position, vitesse);
 	}
 
-	 @Override
-     public void evoluer(Commande commandeUser) {
-		
-        if (commandeUser.gauche) {
-            deplacerVaisseauVersLaGauche();
-        }
-		
-       if (commandeUser.droite) {
-	        deplacerVaisseauVersLaDroite();
-       }
+	@Override
+	public void evoluer(Commande commandeUser) {
 
-     }
+		if (commandeUser.gauche) {
+			deplacerVaisseauVersLaGauche();
+		}
 
- 
-    @Override
-    public boolean etreFini() {
-       return false; 
-    }
+		if (commandeUser.droite) {
+			deplacerVaisseauVersLaDroite();
+		}
 
-    public Vaisseau recupererVaisseau() {
+	}
+
+	@Override
+	public boolean etreFini() {
+		return false;
+	}
+
+	public Vaisseau recupererVaisseau() {
 		return this.vaisseau;
 	}
-    
-    public void initialiserJeu() {
-	    Position positionVaisseau = new Position(this.longueur/2,this.hauteur-1);
-	    Dimension dimensionVaisseau = new Dimension(Constante.VAISSEAU_LONGUEUR, Constante.VAISSEAU_HAUTEUR);
-	    positionnerUnNouveauVaisseau(dimensionVaisseau, positionVaisseau);
-    }
+
+	public void initialiserJeu() {
+		Position positionVaisseau = new Position(this.longueur/2,this.hauteur-1);
+		Dimension dimensionVaisseau = new Dimension(Constante.VAISSEAU_LONGUEUR, Constante.VAISSEAU_HAUTEUR);
+		positionnerUnNouveauVaisseau(dimensionVaisseau, positionVaisseau, Constante.VAISSEAU_VITESSE);
+	 }
 }

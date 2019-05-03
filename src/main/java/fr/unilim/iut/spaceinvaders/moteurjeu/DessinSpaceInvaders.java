@@ -2,6 +2,8 @@ package fr.unilim.iut.spaceinvaders.moteurjeu;
 
 import java.awt.image.BufferedImage;
 import java.awt.Color;
+
+import fr.unilim.iut.spaceinvader.Missile;
 import fr.unilim.iut.spaceinvader.SpaceInvaders;
 import fr.unilim.iut.spaceinvader.Vaisseau;
 
@@ -23,15 +25,25 @@ public class DessinSpaceInvaders implements DessinJeu {
 			Vaisseau vaisseau = this.jeu.recupererVaisseau();
 			this.dessinerUnVaisseau(vaisseau, im);
 		}
+		
+		if (this.jeu.aUnMissile()) {
+			Missile missile = this.jeu.recupererMissile();
+			this.dessinerUnMissile(missile, im);
+		}
 	}
 	
 	private void dessinerUnVaisseau(Vaisseau vaisseau, BufferedImage im) {
 		Graphics2D crayon = (Graphics2D) im.getGraphics();
 
 		crayon.setColor(Color.gray);
-		crayon.fillRect(vaisseau.abscisseLaPlusAGauche(), vaisseau.ordonneeLaPlusBasse(), vaisseau.longueur(),
-				vaisseau.hauteur());
+		crayon.fillRect(vaisseau.abscisseLaPlusAGauche(), vaisseau.ordonneeLaPlusBasse(), vaisseau.longueur(),vaisseau.hauteur());
+	}
+	
+	private void dessinerUnMissile(Missile missile, BufferedImage im) {
+		Graphics2D crayon = (Graphics2D) im.getGraphics();
 
+		crayon.setColor(Color.blue);
+		crayon.fillRect(missile.abscisseLaPlusAGauche(), missile.ordonneeLaPlusBasse(), missile.longueur(),missile.hauteur());
 	}
 
 }

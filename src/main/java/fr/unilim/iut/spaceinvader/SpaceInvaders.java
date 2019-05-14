@@ -5,6 +5,7 @@ import fr.unilim.iut.spaceinvaders.moteurjeu.Constante;
 import fr.unilim.iut.spaceinvaders.moteurjeu.Jeu;
 import fr.unilim.iut.spaceinvaders.utils.DebordementEspaceJeuException;
 import fr.unilim.iut.spaceinvaders.utils.Dimension;
+import fr.unilim.iut.spaceinvaders.utils.Direction;
 import fr.unilim.iut.spaceinvaders.utils.HorsEspaceJeuException;
 import fr.unilim.iut.spaceinvaders.utils.MissileException;
 import fr.unilim.iut.spaceinvaders.utils.Position;
@@ -65,7 +66,7 @@ public class SpaceInvaders implements Jeu {
 
 	public void deplacerVaisseauVersLaDroite() {
 		if (vaisseau.abscisseLaPlusADroite() < (longueur - 1)) {
-			vaisseau.seDeplacerVersLaDroite();
+			vaisseau.deplacerHorizontalementVers(Direction.DROITE);
 			if (!estDansEspaceJeu(vaisseau.abscisseLaPlusADroite(), vaisseau.ordonneeLaPlusHaute())) {
 				vaisseau.positionner(longueur - vaisseau.longueur(), vaisseau.ordonneeLaPlusHaute());
 			}
@@ -74,7 +75,7 @@ public class SpaceInvaders implements Jeu {
 
 	public void deplacerVaisseauVersLaGauche() {
 		if (0 < vaisseau.abscisseLaPlusAGauche())
-			vaisseau.seDeplacerVersLaGauche();
+			vaisseau.deplacerHorizontalementVers(Direction.GAUCHE);
 		if (!estDansEspaceJeu(vaisseau.abscisseLaPlusAGauche(), vaisseau.ordonneeLaPlusHaute())) {
 			vaisseau.positionner(0, vaisseau.ordonneeLaPlusHaute());
 		}
@@ -112,14 +113,13 @@ public class SpaceInvaders implements Jeu {
 			deplacerVaisseauVersLaDroite();
 		}
 		
-		if (commandeUser.tir) {
-			Dimension dimensionMissile =new Dimension(Constante.MISSILE_LONGUEUR,Constante.MISSILE_HAUTEUR);
-			tirerUnMissile(dimensionMissile,Constante.MISSILE_VITESSE);
-		}
-		
 		 if (commandeUser.tir && !this.aUnMissile()) {
 	           tirerUnMissile(new Dimension(Constante.MISSILE_LONGUEUR, Constante.MISSILE_HAUTEUR),Constante.MISSILE_VITESSE);
-		  }
+	      }
+		 
+		 if(null!=missile) {
+			 this.deplacerMissile();
+		 }
 
 	}
 
@@ -149,6 +149,13 @@ public class SpaceInvaders implements Jeu {
 							
 		   this.missile = this.vaisseau.tirerUnMissile(dimensionMissile,vitesseMissile);
      }
+
+	 public void deplacerMissile() {
+		 	missile.deplacerVerticalementVers(Direction.HAUT_ECRAN);
+		 	if(missile.ordonneeLaPlusBasse()<0) {
+		 		missile=null;
+		 	}
+	 }
 	
 	
 }

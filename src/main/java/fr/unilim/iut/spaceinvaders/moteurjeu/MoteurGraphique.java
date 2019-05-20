@@ -44,6 +44,7 @@ public class MoteurGraphique {
 
 		// creation de l'interface graphique
 		this.gui = new InterfaceGraphique(this.dessin,width,height);
+		
 		Controleur controle = this.gui.getControleur();
 
 		// boucle de jeu

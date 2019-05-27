@@ -153,6 +153,11 @@ public class SpaceInvaders implements Jeu {
 		 
 		 if(null!=envahisseur) {
 			 this.deplacerEnvahisseur(directionParDefault);
+			 if(collision.detecterCollision(envahisseur,vaisseau)) {
+		          vaisseau = null;
+		          envahisseur = null;
+		          collision.setCollision(false);
+			 }
 		 }
 		 
 		 

@@ -87,4 +87,14 @@ public class CollisionTest {
 		   
 	    assertEquals(true,collision.detecterCollision(missile, envahisseur));
 		}
+	 
+	 @Test
+	    public void test_VaisseauToucheEnvahisseur() {
+		 
+		 Vaisseau vaisseau=new Vaisseau(new Dimension(1,1),new Position(3 ,6),2);
+		 Envahisseur envahisseur=new Envahisseur(new Dimension(1,1),new Position(3,6),2);
+			
+		   
+	    assertEquals(true,collision.detecterCollision(vaisseau, envahisseur));
+		}
 }

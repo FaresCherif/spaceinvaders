@@ -19,6 +19,7 @@ public class SpaceInvaders implements Jeu {
 	private Constante constante;
 	private Envahisseur envahisseur;
 	private Direction directionParDefault=Direction.GAUCHE;
+	private Collision collision;
 
 	public SpaceInvaders(int longueur, int hauteur) {
 		this.longueur = longueur;
@@ -154,6 +155,7 @@ public class SpaceInvaders implements Jeu {
 			 this.deplacerEnvahisseur(directionParDefault);
 		 }
 		 
+		 
 	}
 
 	@Override
@@ -181,6 +183,8 @@ public class SpaceInvaders implements Jeu {
 		Position positionEnvahisseur = new Position(this.longueur/2,this.hauteur/5);
 		Dimension dimensionEnvahiseur = new Dimension(Constante.ENVAHISSEUR_LONGUEUR, Constante.ENVAHISSEUR_HAUTEUR);
 		positionnerUnNouveauEnvahisseur(dimensionEnvahiseur, positionEnvahisseur, Constante.ENVAHISSEUR_VITESSE);
+		
+		collision = new Collision();
 	 }
 
 	 public void tirerUnMissile(Dimension dimensionMissile, int vitesseMissile) {
@@ -192,20 +196,22 @@ public class SpaceInvaders implements Jeu {
      }
 
 	 public void deplacerMissile() {
-		 	missile.deplacerVerticalementVers(Direction.HAUT_ECRAN);
-		 	if(missile.ordonneeLaPlusBasse()<0) {
-		 		missile=null;
-		 	}
+		 
+
+		 
+		 missile.deplacerVerticalementVers(Direction.HAUT_ECRAN);
+		 if(missile.ordonneeLaPlusBasse()<0) {
+		 	missile=null;
+		 }
+		 
+		 if(this.aUnEnvahisseur()&&this.aUnMissile()) {
+			 if(collision.detecterCollision(missile,envahisseur)) {
+		          missile = null;
+		          envahisseur = null;
+		          collision.setCollision(false);
+		      }
+		 }
 		 	
-		 	if(null!=envahisseur&&missile!=null) {
-				 if(missile.origine.abscisse()>=envahisseur.origine.abscisse()&&missile.origine.abscisse()<=envahisseur.origine.abscisse()+envahisseur.dimension.hauteur() ) {
-					 if(missile.origine.ordonnee()>=envahisseur.origine.ordonnee()&&missile.origine.ordonnee()<=envahisseur.origine.ordonnee()+envahisseur.dimension.hauteur()){
-						 envahisseur=null;
-						 missile=null;
-					 }
-					 
-				 }
-		 	}
 			/*
 			 if(null!=envahisseur&&missile!=null) {
 				 if(missile.origine.abscisse()<=envahisseur.origine.abscisse()&&missile.origine.abscisse()+missile.dimension.longueur()>=envahisseur.origine.abscisse()-envahisseur.dimension.longueur() ) {
@@ -246,6 +252,8 @@ public class SpaceInvaders implements Jeu {
 				 directionParDefault=Direction.GAUCHE;
 			 }
 		 }
+		 
+		 
 		 return directionParDefault;
 		 
 	 }

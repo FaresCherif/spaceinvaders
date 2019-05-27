@@ -84,7 +84,7 @@ public class SpaceInvadersTest {
 	}
    
     @Test
-	public void test_unNouveauVaisseauAvecDimensionEstCorrectementPositionneDansEspaceJeu() {
+public void test_unNouveauVaisseauAvecDimensionEstCorrectementPositionneDansEspaceJeu() {
     	spaceinvaders.positionnerUnNouveauVaisseau(new Dimension(3,2),new Position(7,9), 1);
 		assertEquals("" + 
 		"...............\n" + 
@@ -390,77 +390,8 @@ public class SpaceInvadersTest {
 			"...............\n" , spaceinvaders.recupererEspaceJeuDansChaineASCII());
 			}
 	    
-	    @Test
-	    public void test_MissileToucheEnvahisseur_Dessous_Milieu() {
-
-	    	spaceinvaders.positionnerUnNouveauEnvahisseur(new Dimension(3,2),new Position(7,1), 1);
-	    	spaceinvaders.positionnerUnNouveauVaisseau(new Dimension(7,2),new Position(5,9), 2);
-			spaceinvaders.tirerUnMissile(new Dimension(3,2),2);
-
-			spaceinvaders.deplacerMissile();
-			spaceinvaders.deplacerMissile();
-
-
-		   
-	    	assertEquals("" + 
-			"...............\n" + 
-			"...............\n" +
-			"...............\n" + 
-			"...............\n" + 
-			"...............\n" + 
-			"...............\n" + 
-			"...............\n" + 
-			"...............\n" + 
-			".....VVVVVVV...\n" + 
-			".....VVVVVVV...\n" , spaceinvaders.recupererEspaceJeuDansChaineASCII());
-			}
+	   
 	    
-	    @Test
-	    public void test_MissileToucheEnvahisseur_Dessous_Droite() {
-
-	    	spaceinvaders.positionnerUnNouveauEnvahisseur(new Dimension(3,2),new Position(7,1), 1);
-	    	spaceinvaders.positionnerUnNouveauVaisseau(new Dimension(7,2),new Position(7,9), 2);
-			spaceinvaders.tirerUnMissile(new Dimension(3,2),2);
-
-			spaceinvaders.deplacerMissile();
-			spaceinvaders.deplacerMissile();
-		   
-	    	assertEquals("" + 
-			"...............\n" + 
-			"...............\n" +
-			"...............\n" + 
-			"...............\n" + 
-			"...............\n" + 
-			"...............\n" + 
-			"...............\n" + 
-			"...............\n" + 
-			".......VVVVVVV.\n" + 
-			".......VVVVVVV.\n" , spaceinvaders.recupererEspaceJeuDansChaineASCII());
-			}
-	    
-	    @Test
-	    public void test_MissileToucheEnvahisseur_Dessous_Gauche() {
-
-	    	spaceinvaders.positionnerUnNouveauEnvahisseur(new Dimension(3,2),new Position(7,1), 1);
-	    	spaceinvaders.positionnerUnNouveauVaisseau(new Dimension(7,2),new Position(3,9), 2);
-			spaceinvaders.tirerUnMissile(new Dimension(3,2),2);
-
-			spaceinvaders.deplacerMissile();
-			spaceinvaders.deplacerMissile();
-			spaceinvaders.deplacerMissile();
-		   
-	    	assertEquals("" + 
-			"...............\n" + 
-			"...............\n" +
-			"...............\n" + 
-			"...............\n" + 
-			"...............\n" + 
-			"...............\n" + 
-			"...............\n" + 
-			"...............\n" + 
-			"...VVVVVVV.....\n" + 
-			"...VVVVVVV.....\n" , spaceinvaders.recupererEspaceJeuDansChaineASCII());
-			}
 }
 
 
